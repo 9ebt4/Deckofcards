@@ -1,0 +1,39 @@
+﻿@model DeckOfCardsModel
+
+
+@{
+    if (Model != null)
+    { 
+        <form asp-action="Index" asp-method="post">
+        <p>@Model.deck_id</p>
+            @{
+                int i = 0;
+                foreach (Card c in Model.cards)
+                {
+                    string name = $"card{i}";
+                    i++;
+                    <div style="float: left;">
+                <p>@c.value of @c.suit</p>
+                <img src="@c.image">
+                <input type="checkbox" value="@c.image" name="@name"/>
+            </div>
+        }
+                <input type="hidden" name="deckId" value="@Model.deck_id" />
+                            <input type="hidden" name="cardCount" value="5" />
+            }       <button type="submit"  name="shuffle" value="false">Keep Cards</button>
+        </form>
+        
+    }
+}
+<br />
+<br />
+<br />
+    <div>
+    <form asp-method="post" asp-action="Index">
+        <input type="hidden" name="deckId" value="@Model.deck_id" />
+        <input type="hidden" name="cardCount" value="5" />
+        <button type="submit" name="shuffle" value="false">Draw Cards</button>
+        <button type ="submit" name="shuffle" value="true">Shuffle</button>
+    </form>
+    
+    </div>
